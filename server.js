@@ -1,9 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
 
 app.use(bodyParser.urlencoded({extended: true}));
+
+MongoClient.connect('https://mlab.com/databases/firefly-quotes', (err, database) => {
+
+});
 
 app.get('/', (req,res) => {
   res.sendFile(__dirname + '/index.html');
