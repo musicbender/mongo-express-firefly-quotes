@@ -9,7 +9,7 @@ const dbUrl = "mongodb://admin:5Vg4&W$baf@ds157499.mlab.com:57499/firefly-quotes
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.static('public'));
-app.use(bodyParse.json());
+app.use(bodyParser.json());
 
 MongoClient.connect(dbUrl, (err, database) => {
   if (err) return console.log(err);
@@ -38,5 +38,25 @@ app.post('/quotes', (req, res) => {
 });
 
 app.put('/quotes', (req, res) => {
+  db.collection('quotes')
+    .findOneAndUpdate({name: "Jayne"}, {
+      $set: {
+        name: req.body.name,
+        quote: req.body.quote
+      }
+    },
+    {
+      $sort: {
+        _id: -1
+      }
+    },
+    (err, result) => {
+      if(err) return console.log(err);
+
+      res.send(result);
+    })
+});
+
+app.delete('/quotes', (req,res) => {
   
 })
