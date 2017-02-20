@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const MongoClient = require('mongodb').MongoClient;
 
 const app = express();
+app.set('view engine', 'ejs');
 
 const dbUrl = "mongodb://admin:5Vg4&W$baf@ds157499.mlab.com:57499/firefly-quotes";
 
@@ -18,7 +19,12 @@ MongoClient.connect(dbUrl, (err, database) => {
 });
 
 app.get('/', (req,res) => {
-  res.sendFile(__dirname + '/index.html');
+  db.collection("quotes").find().toArray(function(err, results) {
+    if (err) return console.log(err);
+
+    res.render('index.ejs', {quotes: results});
+  });
+  // res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/quotes', (req, res) => {
