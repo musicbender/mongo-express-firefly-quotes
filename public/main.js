@@ -31,6 +31,9 @@ del.addEventListener('click', function() {
     if(res.ok) return res.json();
   })
   .then(data => {
-    window.location.reload();
+    window.location.reload(true);
+  })
+  .catch(err => {
+    console.log(err);
   })
 });
