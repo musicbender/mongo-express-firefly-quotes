@@ -8,6 +8,8 @@ app.set('view engine', 'ejs');
 const dbUrl = "mongodb://admin:5Vg4&W$baf@ds157499.mlab.com:57499/firefly-quotes";
 
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(express.static('public'));
+app.use(bodyParse.json());
 
 MongoClient.connect(dbUrl, (err, database) => {
   if (err) return console.log(err);
@@ -24,7 +26,6 @@ app.get('/', (req,res) => {
 
     res.render('index.ejs', {quotes: results});
   });
-  // res.sendFile(__dirname + '/index.html');
 });
 
 app.post('/quotes', (req, res) => {
@@ -35,3 +36,7 @@ app.post('/quotes', (req, res) => {
     res.redirect('/');
   });
 });
+
+app.put('/quotes', (req, res) => {
+  
+})
