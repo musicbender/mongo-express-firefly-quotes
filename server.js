@@ -58,5 +58,10 @@ app.put('/quotes', (req, res) => {
 });
 
 app.delete('/quotes', (req,res) => {
-  
+  db.collection('quotes')
+    .findOneAndDelete({name: req.body.name},
+      (err, result) => {
+        if(err) return console.log(500, err);
+        res.send('Wash got deleted');
+    })
 })
